@@ -1,0 +1,174 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Dashboard | {{ info.name }}{% endblock %}
+
+{% block content %}
+
+</header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h1 class="display-4 fw-bold mb-3">Hi, I'm <span class="text-primary">{{ info.name}}</span></h1>
+                    <h2 class="mb-4">{{ info.profession}}</h2>
+                    <p class="lead mb-4">{{ info.short_bio}}</p>
+                    <div class="d-flex gap-3">
+                        <a href="{{info.additionalink}}" class="btn btn-primary btn-lg">Visit My Github</a>
+                        
+                    </div>
+                </div>
+                <div class="col-lg-6 text-center mt-5 mt-lg-0">
+                    {% if info.image %}
+                    <img src="{{ info.image.url }}" alt="Profile Picture" class="profile-img rounded-circle">
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-5">
+        <div class="container ">
+            <h2 class="text-center section-title">About Me</h2>
+            <div class="row">
+                <div class="col-lg-8 mx-auto ">
+                    <p class="text-center  t lead">{{ info.about }}</p>
+                    <div class="row mt-4 text-center ">
+                        {% for w in work %}
+                         <h2 class="text-center section-title">My Work Experience</h2>
+                        <div class="col-md-4 mb-3 ">
+                            <div class="card border-0 shadow-sm text-white-50">
+                                <div class="card-body">
+                                    <i class="bi bi-laptop display-4 text-primary"></i>
+                                    <h5 class="mt-3">{{w.company_name}}</h5>
+                                    <p>{{w.position}}</p>
+                                    <p>{{w.start_date}} - {{w.end_date}}</p>
+                                    <p>{{w.achivements}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+<section id="skills" class="py-5">
+    <div class="container">
+        <h2 class="text-center section-title">My Skills</h2>
+        <div class="row">
+            <div class="col-lg-6 mx-auto">
+                {% for skill in technical %}
+                <div class="skill-item mb-3">
+                    <div class="d-flex justify-content-between">
+                        <h5>{{ skill.skill_name }}</h5>
+                   
+                        <span>{{ skill.level }}%</span>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar bg-primary" 
+                             role="progressbar" 
+                             style="width: {{ skill.level }}%;" 
+                             aria-valuenow="{{ skill.level }}" 
+                             aria-valuemin="0" 
+                             aria-valuemax="100">
+                             {{ skill.level }}%
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+   
+    <!-- Projects Section -->
+    <section id="projects" class="py-5">
+        <div class="container">
+            <h2 class="text-center section-title">My Projects</h2>
+            <div class="row">
+                {% for project in projects %}
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card project-card">
+                        <img src="{{ project.image.url }}" class="card-img-top" alt="{{ project.title }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ project.title }}</h5>
+                            <p class="card-text">{{ project.description }}</p>
+                            
+                            <div class="mb-3">
+                                <span class="badge bg-primary me-1">{{ project.technologies_used}}</span>
+                              
+                            </div>
+                          
+                            <a href="{{ project.github_link }}" class="btn btn-outline-primary" target="_blank">View Project</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+               
+            </div> 
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-5 ">
+        <div class="container">
+            <h2 class="text-center section-title">Get In Touch</h2>
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <div class="row">
+                        
+                        <div class="col-md-7">
+                            <form method="post" >
+                                {% csrf_token %}
+                                <div class="mb-3">
+                                    <label for="name" class="form-label">Your Name</label>
+                                    <input type="text" class="form-control" id="name" required placeholder="Enter your name">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">Email Address</label>
+                                    <input type="email" class="form-control" id="email" required placeholder="Enter your email">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="subject" class="form-label">Subject</label>
+                                    <input type="text" class="form-control" id="subject" required placeholder="Subject">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="message" class="form-label">Message</label>
+                                    <textarea class="form-control" id="message" rows="5" required placeholder="Discribe what's you want to say ??"></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Send Message</button>
+                            </form>
+                        </div>
+                        <div class="col-md-5 mb-4 mb-md-0">
+                            <div class="contact-info h-100">
+                                <h4 class="mb-4">Contact Info</h4>
+                                <p><i class="bi bi-geo-alt me-2"></i> BGB No.1 Gate Azinpur, Dhaka, Bangladesh</p>
+                                <p><i class="bi bi-envelope me-2"></i> mtworld008@gmail.com</p>
+                                <p><i class="bi bi-phone me-2"></i> 01849684035</p>
+                                <div class="social-icons mt-4">
+                                    <a href="#"><i class="bi bi-github"></i></a>
+                                    <a href="#"><i class="bi bi-linkedin"></i></a>
+                                    <a href="#"><i class="bi bi-twitter"></i></a>
+                                    <a href="#"><i class="bi bi-instagram"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-4 text-center">
+        <div class="container">
+            <p class="mb-0">&copy; 2025 MT . All rights reserved.</p>
+        </div>
+    </footer>
+
+{% endblock %}
